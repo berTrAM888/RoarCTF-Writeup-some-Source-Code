@@ -1,0 +1,4 @@
+sceneSetups:
+- path: D:/SVNRepos/Tank19/Unity/Tank/Assets/Scenes/CompleteMainScene.unity
+  isLoaded: 1
+  isActive: 1

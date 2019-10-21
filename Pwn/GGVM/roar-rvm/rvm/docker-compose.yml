@@ -1,0 +1,10 @@
+version: '2'
+services:
+ pwn_deploy:
+   image: rvm:latest
+   build: .
+   container_name: rvm
+   ports:
+    - 10050:10050
+
+

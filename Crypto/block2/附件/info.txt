@@ -1,0 +1,4 @@
+CoinFlip 
+赌硬币游戏,如果你能赢20次,就给你flag
+address : 0xa38808d21b2bf0eb3ea33b807035724869438a8f on ropsten.
+call CaptureTheFlag with base64(your email),you will receive flag.

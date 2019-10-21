@@ -1,0 +1,2 @@
+~/oooollvm/bin/clang++ -stdlib=libc++ ./math.cpp -mllvm -bcf_loop=300000 -mllvm -fla -mllvm -split -mllvm -sub
+strip math
