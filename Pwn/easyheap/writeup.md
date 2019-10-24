@@ -1,47 +1,5 @@
 # Easyheap
 
-## 题目信息：
-
-* 题目名称：Easyrop
-* 预估难度：中等
-* 编译命令：gcc -O2 -fstack-protector-all -fPIE -pie  -Wl,-z,relro,-z,now easyheap.c -o easyheap
-
-## 题目描述：
-
-> Easyheap , so easy heap!
-
-## 题目提示：
-
-1. username and password
-2. unlink
-3. be careful
-
-## 原始 flag 及更新命令：
-
-```shell
-    # 原始 flag
-    flag{flag_test}
-    # ..
-    # 更新 flag 命令
-    echo 'flag{85c2a01a-55f7-442a-8712-3f6908e1463a}' > /flag
-```
-
-## writeup：
-
-检查题目保护，保护全开
-
-```bash
-# tac @ ubuntu in /mnt/hgfs/Z/build/easyrop [5:56:01] 
-$ checksec easyrop 
-[*] '/mnt/hgfs/Z/build/easyrop/easyrop'
-    Arch:     amd64-64-little
-    RELRO:    Full RELRO
-    Stack:    No canary found
-    NX:       NX enabled
-    PIE:      No PIE (0x400000)
-```
-
-没有canary和PIE
 
 题目存在一个很容易发现的UAF，并且限制了show
 
